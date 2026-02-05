@@ -13,7 +13,8 @@ class Login(forms.Form):
 
 
 class GeneratePin(forms.Form):
-    pin = forms.IntegerField(label='Create Pin')
+    account_number = forms.IntegerField(label='Enter Your New Account Number')
+    pin = forms.IntegerField(label='Set a new 4-Digit PIN',min_value=1000,max_value=9999)
 
 class Deposit(forms.Form):
     amount = forms.FloatField(label='Deposite Amount')

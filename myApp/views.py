@@ -17,8 +17,14 @@ def register_view(request):
         if form.is_valid():
             full_name = form.cleaned_data['fullName']
             mobile_no = form.cleaned_data['mobile']
-            initial_bal = form.cleaned_data['balance']
+            initial_balance = form.cleaned_data['balance']
             bank_name = form.cleaned_data['bankName']
 
-            
+            new_account = BankDetails(accountHolder=full_name,mobile=mobile_no,balance=initial_balance,bankName = bank_name)
+            new_account.save()
 
+            response = render(request,'success.html',context={'account_number':new_account.accountNumber,'name':new_account.accountHolder})
+        else:
+            form = Register()
+            response = render(request,'register.html',context={'register_form':form})
+        return response
