@@ -6,6 +6,11 @@ class Register(forms.Form):
     balance = forms.FloatField(label='Initial Balance',min_value=500)
     bankName = forms.CharField(label='Bank Name',max_length=15)
 
+class Login(forms.Form):
+    fullName = forms.CharField(label='Full name',max_length=40)
+    pin = forms.IntegerField(label='Create Pin')
+    
+
 
 class GeneratePin(forms.Form):
     pin = forms.IntegerField(label='Create Pin')
