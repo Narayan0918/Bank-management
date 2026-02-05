@@ -24,7 +24,35 @@ def register_view(request):
             new_account.save()
 
             response = render(request,'success.html',context={'account_number':new_account.accountNumber,'name':new_account.accountHolder})
-        else:
-            form = Register()
-            response = render(request,'register.html',context={'register_form':form})
-        return response
+            return response
+    else:
+        form = Register()
+        response = render(request,'register.html',context={'register_form':form})
+    return response
+
+
+
+def set_pin_view(request):
+    message = ''
+    if request.method=='POST':
+        form = GeneratePin(request.POST)
+
+        if form.is_valid():
+            acc_num = form.cleaned_data['account_number']
+            new_pin = form.cleaned_data['pin']
+
+            try:
+                user_account = BankDetails.objects.get(accountNumber =  acc_num)
+
+                if user_account.pin is not None:
+                    message = 'PIN already exist for this account!'
+                else:
+                    user_account.pin = new_pin
+                    user_account.save()
+                    message = 'Success! Your pin has been set.'
+            except BankDetails.DoesNotExist:
+                message = 'Account Number not found.'
+    else:
+        form = GeneratePin()
+    response = render(request,'set_pin.html',context={'form':form,'message':message}) 
+    return response
