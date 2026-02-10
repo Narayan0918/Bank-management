@@ -9,13 +9,14 @@
 
 <body>
     <div>
-        <h2>Forms</h2>
+        <h2>Account Registration Form</h2>
     </div>
 
     <div class="registerForm">
         <form method="post">
+            {% csrf_token %}
             <table border="2" width="50%">
-                {{reg.as_table}}
+                {{register_form.as_table}}
             </table>
             <button type="submit">Submit</button>
         </form>

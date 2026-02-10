@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from myApp.views import home
+from myApp.views import register_view,set_pin_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
+    path('', register_view,name='register'),
+    path('set-pin/', set_pin_view,name='set_pin'),
 ]

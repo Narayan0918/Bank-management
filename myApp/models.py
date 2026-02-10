@@ -1,10 +1,11 @@
 from django.db import models
 import random
+from django.utils import timezone
 
 def generate_account_number():
     while True:
         acc_num = random.randint(999210000000,999999999999)
-        if not BankDetails.objects.filter(accountNumber = acc_num).exist():
+        if not BankDetails.objects.filter(accountNumber = acc_num).exists():
             return acc_num
 
 
@@ -19,3 +20,14 @@ class BankDetails(models.Model):
 
     def __str__(self):
         return f"{self.accountNumber} - {self.accountHolder}"
+    
+
+class Transaction(models.Model):
+    # Link this transaction to a specific Bank Account
+    account = models.ForeignKey(BankDetails, on_delete=models.CASCADE, related_name='transactions')
+    amount = models.FloatField()
+    transaction_type = models.CharField(max_length=10)  # "Deposit" or "Withdraw"
+    timestamp = models.DateTimeField(auto_now_add=True) # Automatically sets current date/time
+
+    def __str__(self):
+        return f"{self.transaction_type} of {self.amount} on {self.timestamp}"

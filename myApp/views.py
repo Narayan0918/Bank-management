@@ -27,8 +27,8 @@ def register_view(request):
             return response
     else:
         form = Register()
-        response = render(request,'register.html',context={'register_form':form})
-    return response
+    
+    return render(request,'register.html',context={'register_form':form})
 
 
 
@@ -56,3 +56,5 @@ def set_pin_view(request):
         form = GeneratePin()
     response = render(request,'set_pin.html',context={'form':form,'message':message}) 
     return response
+
+
