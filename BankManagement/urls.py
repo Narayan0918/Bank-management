@@ -20,9 +20,9 @@ from myApp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', register_view,name='register'),
+    path('register/', register_view,name='register'),
     path('set-pin/', set_pin_view,name='set_pin'),
-    path('login/', login_view, name='login'),
+    path('', login_view, name='login'),
     path('dashboard/', dashboard_view, name='dashboard'),
     path('transaction/<str:type>/', perform_transaction_view, name='transaction'),
     path('logout/', logout_view, name='logout'),

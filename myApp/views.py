@@ -84,7 +84,6 @@ def dashboard_view(request):
     acc_num = request.session['account_number']
     user = BankDetails.objects.get(accountNumber=acc_num)
     
-    # Fetch last 5 transactions (newest first)
     recent_transactions = Transaction.objects.filter(account=user).order_by('-timestamp')[:5]
     
     return render(request, "dashboard.html", {
@@ -93,7 +92,6 @@ def dashboard_view(request):
     })
 
 def perform_transaction_view(request, type):
-    # type will be either 'deposit' or 'withdraw'
     if 'account_number' not in request.session:
         return redirect('login')
         
