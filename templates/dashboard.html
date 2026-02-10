@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard</title></head>
+<body>
+    <h1>Welcome, {{ user.accountHolder }}</h1>
+    <div style="border: 1px solid black; padding: 10px;">
+        <h3>Account Details</h3>
+        <p><strong>Account Number:</strong> {{ user.accountNumber }}</p>
+        <p><strong>Bank:</strong> {{ user.bankName }}</p>
+        <p><strong>Current Balance:</strong> ${{ user.balance }}</p>
+    </div>
+
+    <br>
+    <a href="/transaction/deposit"><button>Deposit Money</button></a>
+    <a href="/transaction/withdraw"><button>Withdraw Money</button></a>
+    <a href="/logout"><button>Logout</button></a>
+
+    <hr>
+    <h3>Recent Transactions</h3>
+    <table border="1" width="100%">
+        <tr>
+            <th>Date & Time</th>
+            <th>Type</th>
+            <th>Amount</th>
+        </tr>
+        {% for t in transactions %}
+        <tr>
+            <td>{{ t.timestamp }}</td>
+            <td>{{ t.transaction_type }}</td>
+            <td>${{ t.amount }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No transactions yet.</td></tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

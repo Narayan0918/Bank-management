@@ -1,14 +1,9 @@
-from django.shortcuts import render
-from myApp.forms import Register,Deposit,GeneratePin
-from myApp.models import BankDetails
+from django.shortcuts import render,redirect
+from django.contrib import messages
+from myApp.forms import Register,GeneratePin,AmountForm,LoginForm
+from myApp.models import BankDetails,Transaction
 
 # Create your views here.
-def home(request):
-    regForm = Register()
-    depForm = Deposit()
-    genForm = GeneratePin()
-    response = render(request,"forms.html",context={'reg':regForm,'dep':depForm,'gen':genForm})
-    return response
 
 def register_view(request):
     if request.method == 'POST':
@@ -58,3 +53,80 @@ def set_pin_view(request):
     return response
 
 
+def login_view(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            acc_num = form.cleaned_data['account_number']
+            pin = form.cleaned_data['pin']
+            
+            try:
+                # Check if user exists and PIN matches
+                user = BankDetails.objects.get(accountNumber=acc_num)
+                if user.pin == pin:
+                    # SUCCESS: Store account number in session
+                    request.session['account_number'] = user.accountNumber
+                    return redirect('dashboard')
+                else:
+                    messages.error(request, "Incorrect PIN")
+            except BankDetails.DoesNotExist:
+                messages.error(request, "Account Number does not exist")
+    else:
+        form = LoginForm()
+        
+    return render(request, "login.html", {'form': form})
+
+def dashboard_view(request):
+    # Check if user is logged in
+    if 'account_number' not in request.session:
+        return redirect('login')
+    
+    acc_num = request.session['account_number']
+    user = BankDetails.objects.get(accountNumber=acc_num)
+    
+    # Fetch last 5 transactions (newest first)
+    recent_transactions = Transaction.objects.filter(account=user).order_by('-timestamp')[:5]
+    
+    return render(request, "dashboard.html", {
+        'user': user,
+        'transactions': recent_transactions
+    })
+
+def perform_transaction_view(request, type):
+    # type will be either 'deposit' or 'withdraw'
+    if 'account_number' not in request.session:
+        return redirect('login')
+        
+    user = BankDetails.objects.get(accountNumber=request.session['account_number'])
+    
+    if request.method == "POST":
+        form = AmountForm(request.POST)
+        if form.is_valid():
+            amount = form.cleaned_data['amount']
+            
+            if type == 'withdraw':
+                if user.balance >= amount:
+                    user.balance -= amount
+                    Transaction.objects.create(account=user, amount=amount, transaction_type="Debit")
+                    messages.success(request, "Withdrawal Successful!")
+                else:
+                    messages.error(request, "Insufficient Balance")
+                    return redirect('dashboard')
+            else: # Deposit
+                user.balance += amount
+                Transaction.objects.create(account=user, amount=amount, transaction_type="Credit")
+                messages.success(request, "Deposit Successful!")
+            
+            user.save()
+            return redirect('dashboard')
+    else:
+        form = AmountForm()
+        
+    return render(request, "transaction.html", {'form': form, 'type': type})
+
+def logout_view(request):
+    try:
+        del request.session['account_number']
+    except KeyError:
+        pass
+    return redirect('login')

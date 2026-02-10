@@ -10,7 +10,7 @@ class GeneratePin(forms.Form):
     account_number = forms.IntegerField(label='Enter Your New Account Number')
     pin = forms.IntegerField(label='Set a new 4-Digit PIN',min_value=1000,max_value=9999)
 
-class Login(forms.Form):
+class LoginForm(forms.Form):
     account_number = forms.IntegerField(label='Account Number')
     pin = forms.IntegerField(label='Pin',widget=forms.PasswordInput)
     
