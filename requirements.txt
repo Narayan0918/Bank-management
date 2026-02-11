@@ -1,5 +1,6 @@
 Django==6.0
 django-tidb~=6.0.0
+pymysql
 gunicorn
 whitenoise
 dj-database-url
