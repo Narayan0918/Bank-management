@@ -92,8 +92,8 @@ if os.getenv('TIDB_HOST'):
             'HOST': os.getenv('TIDB_HOST'),
             'PORT': '4000',
             'OPTIONS': {
-                'ssl':{}, 
-            }
+                'ssl':{'ca': '/etc/ssl/certs/ca-certificates.crt',}, 
+            },
         }
     }
 else:
