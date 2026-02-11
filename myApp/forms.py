@@ -7,7 +7,7 @@ class Register(forms.Form):
     bankName = forms.CharField(label='Bank Name',max_length=15,widget=forms.TextInput(attrs={'placeholder': 'Enter your bank name'}))
 
 class GeneratePin(forms.Form):
-    account_number = forms.IntegerField(label='Enter Your New Account Number',widget=forms.NumberInput(attrs={'placeholder': 'Enter account number'}))
+    account_number = forms.IntegerField(label='Enter Your Account Number',widget=forms.NumberInput(attrs={'placeholder': 'Enter account number'}))
     pin = forms.IntegerField(label='Set a new 4-Digit PIN',min_value=1000,max_value=9999,widget=forms.NumberInput(attrs={'placeholder': 'Enter PIN'}))
 
 class LoginForm(forms.Form):

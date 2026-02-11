@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Document</title>
 </head>
+
 <body>
-    <div>
-        <h2>Registration successful!</h2>
-        <p>Welcome, {{name}}</p>
+    <div class="container-fluid d-flex flex-column justify-content-center align-items-center mt-5">
+        <h2 class="text-capitalize text-success">Registration successful!</h2>
+        <p class="">Welcome, {{name}}</p>
         <p>Your Account number is: <strong>{{account_number}}</strong> </p>
-        <p>Please save and remember this number in order to access your Account.</p>
+        <p>*Please save and remember this number in order to access your Account.*</p>
     </div>
-    <div>
-        <a href="/set-pin">
-            <button>Set PIN</button>
+    <div class="container-fluid d-flex flex-column justify-content-center align-items-center mt-5">
+        <a href="/set-pin" class="">
+            <button class="btn btn-outline-warning">Set PIN</button>
         </a>
     </div>
 </body>
+
 </html>

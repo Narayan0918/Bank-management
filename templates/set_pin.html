@@ -1,27 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Document</title>
-</head>
-<body>
-    <div>
-        <h2>Set Your Security PIN</h2>
-        {% if message %}
-            <h2 style="color: red;">{{message}}</h2>
-        {% endif %}
 
-        <form action="" method="post">
+    <style>
+        form {
+            width: 100px;
+
+            table {
+                tr {
+                    th {
+                        text-align: right;
+                    }
+                }
+                label{
+                    font-weight: 600;
+                }
+                input{
+                    padding: 2px 5px;
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    outline: none;
+                    &:last-child{
+                        width: 200px;
+                    }
+                }
+            }
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid d-flex flex-column justify-content-center align-items-center mt-5">
+        <h2 class="mb-4">Set Your Security PIN</h2>
+
+        <form method="post" class="container-fluid d-flex flex-column align-items-center ">
             {% csrf_token %}
-            <table border="1">
+            <table class="table table-borderless">
                 {{ form.as_table }}
             </table>
             <br>
-            <button type="submit">Set PIN</button>
+            <button type="submit" class="btn btn-outline-primary w-50">Set PIN</button>
         </form>
+
+        {% if message %}
+        <h2 style="color: red;">{{message}}</h2>
+        {% endif %}
         <br>
         <a href="/">Home</a>
     </div>
 </body>
+
 </html>
