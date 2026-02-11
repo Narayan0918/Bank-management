@@ -92,7 +92,7 @@ if os.getenv('TIDB_HOST'):
             'HOST': os.getenv('TIDB_HOST'),
             'PORT': '4000',
             'OPTIONS': {
-                'ssl_mode': 'REQUIRED', # TiDB requires secure connections
+                'ssl': {'ca': os.getenv('CA_PATH')}, 
             }
         }
     }
