@@ -33,7 +33,7 @@ DEBUG = os.getenv('DEBUG') == 'True'
 ALLOWED_HOSTS = ['*']
 
 
-# Application definition'*'
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -117,7 +117,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # Password validation
@@ -154,4 +154,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+# 1. The URL used to access static files in the browser
 STATIC_URL = 'static/'
+
+# 2. Where Django looks for static files during development
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+# 3. REQUIRED FOR PRODUCTION: Where files are gathered for WhiteNoise
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
