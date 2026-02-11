@@ -84,7 +84,7 @@ def dashboard_view(request):
     acc_num = request.session['account_number']
     user = BankDetails.objects.get(accountNumber=acc_num)
     
-    recent_transactions = Transaction.objects.filter(account=user).order_by('-timestamp')[:5]
+    recent_transactions = Transaction.objects.filter(account=user).order_by('-timestamp')[:]
     
     return render(request, "dashboard.html", {
         'user': user,

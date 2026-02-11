@@ -64,11 +64,6 @@
     <div class="container-fluid p-4 border border-black w-75 mt-3 rounded-3">
 
         <h2 class="text-center font-monospace">Bank Login</h2>
-        {% if messages %}
-        {% for message in messages %}
-        <p style="color:red">{{ message }}</p>
-        {% endfor %}
-        {% endif %}
 
         <form method="post">
             {% csrf_token %}
