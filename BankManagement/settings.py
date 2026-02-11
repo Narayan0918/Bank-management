@@ -92,7 +92,7 @@ if os.getenv('TIDB_HOST'):
             'HOST': os.getenv('TIDB_HOST'),
             'PORT': '4000',
             'OPTIONS': {
-                'ssl': {'ca': os.getenv('CA_PATH')}, 
+                'ssl':True, 
             }
         }
     }
