@@ -1,23 +1,33 @@
 <!DOCTYPE html>
-<html>
-<head><title>Dashboard</title></head>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+    <title>Document</title>
+</head>
+
 <body>
-    <h1>Welcome, {{ user.accountHolder }}</h1>
-    <div style="border: 1px solid black; padding: 10px;">
-        <h3>Account Details</h3>
+    <h1 class="text-center text-secondary mt-3">Welcome, {{ user.accountHolder }}</h1>
+    <div class="container-fluid border border-black p-4 w-75 mb-3 rounded-2">
+        <h3 class="text-center text-capitalize mb-3">Account Details</h3>
         <p><strong>Account Number:</strong> {{ user.accountNumber }}</p>
         <p><strong>Bank:</strong> {{ user.bankName }}</p>
         <p><strong>Current Balance:</strong> ${{ user.balance }}</p>
     </div>
 
-    <br>
-    <a href="/transaction/deposit"><button>Deposit Money</button></a>
-    <a href="/transaction/withdraw"><button>Withdraw Money</button></a>
-    <a href="/logout"><button>Logout</button></a>
+    <div class="d-flex gap-2 align-items-center justify-content-center">
+        <a href="/transaction/deposit"><button class="btn btn-outline-dark">Deposit Money</button></a>
+        <a href="/transaction/withdraw"><button class="btn btn-outline-dark">Withdraw Money</button></a>
+        <a href="/logout"><button class="btn btn-outline-dark">Logout</button></a>
+    </div>
 
     <hr>
     <h3>Recent Transactions</h3>
-    <table border="1" width="100%">
+    <table class="table table-bordered table-responsive table-hover">
         <tr>
             <th>Date & Time</th>
             <th>Type</th>
@@ -30,7 +40,9 @@
             <td>${{ t.amount }}</td>
         </tr>
         {% empty %}
-        <tr><td colspan="3">No transactions yet.</td></tr>
+        <tr>
+            <td colspan="3">No transactions yet.</td>
+        </tr>
         {% endfor %}
     </table>
 </body>
