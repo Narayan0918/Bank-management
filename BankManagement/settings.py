@@ -163,13 +163,17 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # 3. REQUIRED FOR PRODUCTION: Where files are gathered for WhiteNoise
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# settings.py
+
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        # Use the basic Django storage to avoid compression errors
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage", 
     },
 }
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# Update this line as well
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
